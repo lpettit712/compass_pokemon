@@ -3,7 +3,7 @@ Datasets created are below.
 While loading I loaded data for all moves, pokemon types & pokemon instead of just
 the first 15. In the queries I filtered for the first 15 pokemon.
 
-
+DATA MODEL
 dim_moves: Building a moves dimension to track move attributes. Including pokemon_type here as there is only 1 per move
 - move_id (Primary Key)
 - move_name
@@ -28,12 +28,41 @@ pokemon_to_moves_mapping: The relationship between pokemon & moves is many to ma
 - move_id
 
 
-Run Scripts:
+CREATE SCRIPTS
+CREATE TABLE "dim_moves" (
+"move_id" INTEGER,
+  "move_name" TEXT,
+  "accuracy" INTEGER,
+  "pokemon_type_name" TEXT
+);
+
+CREATE TABLE "dim_pokemon" (
+"pokemon_id" INTEGER,
+  "pokemon_name" TEXT,
+  "pokemon_weight" INTEGER
+);
+
+CREATE TABLE "dim_pokemon_types" (
+"type_id" INTEGER,
+  "type_name" TEXT
+);
+
+CREATE TABLE "pokemon_to_moves_mapping" (
+"pokemon_id" INTEGER,
+  "move_id" INTEGER
+);
+
+CREATE TABLE "pokemon_to_pokemon_type_mapping" (
+"pokemon_id" INTEGER,
+  "type_id" INTEGER
+);
+
+LOAD SCRIPT:
 
 python3 ./part_2_load_pokemon_data.py
 
+METRICS SCRIPT:
 python3 ./part_3_pull_pokemon_data.py
-
 
 Results:
 Question 1: What is the average weight of the pokemon by Pokemon type?
