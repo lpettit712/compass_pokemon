@@ -1,0 +1,83 @@
+Notes:
+Datasets created are below.
+While loading I loaded data for all moves, pokemon types & pokemon instead of just
+the first 15. In the queries I filtered for the first 15 pokemon.
+
+
+dim_moves: Building a moves dimension to track move attributes. Including pokemon_type here as there is only 1 per move
+- move_id (Primary Key)
+- move_name
+- accuracy
+- pokemon_type_name
+
+dim_pokemon: Building a pokemon dimension to track pokemon attributes
+- pokemon_id (Primary Key)
+- pokemon_name
+- pokemon_weight
+
+dim_pokemon_types: Building a pokemon types dimension to track pokemon type attributes
+- type_id (Primary Key)
+- type_name
+
+pokemon_to_pokemon_type_mapping: The relationship between pokemon & pokemon types is many to many. Include for mappings
+- pokemon_id
+- type_id
+
+pokemon_to_moves_mapping: The relationship between pokemon & moves is many to many. Include for mappings
+- pokemon_id
+- move_id
+
+
+Run Scripts:
+
+python3 ./part_2_load_pokemon_data.py
+
+python3 ./part_3_pull_pokemon_data.py
+
+
+Results:
+Question 1: What is the average weight of the pokemon by Pokemon type?
+type_name  average_weight
+      bug      145.833333
+     fire      393.333333
+   flying      612.500000
+    grass      399.666667
+   poison      271.000000
+    water      390.000000
+Question 2: List the highest accuracy move by Pokemon type
+pokemon_type_name                                         move_names
+              bug  twineedle,silver-wind,signal-beam,u-turn,x-sci...
+             dark  bite,thief,pursuit,crunch,beat-up,knock-off,pa...
+           dragon  dragon-rage,outrage,dragon-breath,twister,drag...
+         electric                                      thunder-punch
+            fairy                                              charm
+         fighting  counter,seismic-toss,rock-smash,focus-punch,br...
+             fire  fire-punch,ember,flamethrower,flare-blitz,flam...
+           flying               gust,wing-attack,sky-drop,acrobatics
+            ghost     nightmare,shadow-ball,shadow-claw,ominous-wind
+            grass  vine-whip,mega-drain,solar-beam,petal-dance,gi...
+           ground                   earthquake,dig,mud-slap,bulldoze
+              ice                       ice-punch,ice-beam,avalanche
+           normal  scratch,razor-wind,headbutt,tackle,body-slam,d...
+           poison  poison-sting,sludge,sludge-bomb,poison-jab,ven...
+          psychic  psybeam,confusion,psychic,dream-eater,psywave,...
+             rock                           ancient-power,smack-down
+            steel                             gyro-ball,flash-cannon
+            water  water-gun,surf,bubble-beam,waterfall,bubble,di...
+Question 3: Count the number of moves by Pokemon and order from greatest to least
+pokemon_name  num_moves
+   charizard        108
+   blastoise         93
+  charmander         93
+    squirtle         91
+  charmeleon         84
+   bulbasaur         78
+  butterfree         77
+    venusaur         77
+   wartortle         76
+    beedrill         75
+     ivysaur         66
+    caterpie          5
+      kakuna          5
+     metapod          5
+      weedle          4
